@@ -28,6 +28,12 @@ public class Main {
                 e.printStackTrace();
             }
 
+            try {
+                System.out.print(calculator.checkInput());
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+
             calculator.calculate();
             calculator.printResult();
         });

@@ -21,7 +21,7 @@ public class Calculator {
         return switch (operator) {
             case '+', '-' -> 1;
             case '/', '*' -> 2;
-            default -> -1;
+            default -> throw new IllegalArgumentException("This " + operator + " cannot be used.");
         };
     }
 
@@ -38,7 +38,7 @@ public class Calculator {
             }
 
             if (!checkValue((char) value)){
-                throw new IOException("This ->" + value + "<- is not accepted.");
+                throw new IllegalArgumentException("This ->" + value + "<- cannot be accepted.");
             }
 
             if (value >= '0' && value <='9'){
@@ -51,7 +51,7 @@ public class Calculator {
             }
 
             if (isOperator(value)){
-                while ( !operatorsStack.empty() &&
+                while (!operatorsStack.empty() &&
                         hasHigherPriority(operatorsStack.peek(), (char) value)){
 
                     outputQueue.add(String.valueOf(operatorsStack.pop()));
@@ -131,7 +131,7 @@ public class Calculator {
         System.out.printf("%s = %,.2f%n", this.input, this.result);
     }
 
-    public String checkInput() throws IOException {
+    public String checkInput() throws RuntimeException {
         if (this.input.matches("\\*\\*") ||
                 this.input.matches("//") ||
                 this.input.matches("-\\+") ||
@@ -140,13 +140,13 @@ public class Calculator {
                 this.input.matches("\\*/") ||
                 this.input.matches("-\\*") ||
                 this.input.matches("\\+\\+")){
-            throw new IOException("//, **, -+, +*, /*, */, -*, ++ patterns cannot be accepted.");
+            throw new RuntimeException("//, **, -+, +*, /*, */, -*, ++ patterns cannot be accepted.");
         }
 
         if (this.input.matches("\\*-") ||
             this.input.matches("\\+-") ||
             this.input.matches("--")){
-            return "*-, +- and -- is not supported yet.";
+            return "*-, +- and -- is not supported yet.\n";
         }
 
         return null;
