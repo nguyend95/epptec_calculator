@@ -21,7 +21,7 @@ public class Calculator {
         return switch (operator) {
             case '+', '-' -> 1;
             case '/', '*' -> 2;
-            default -> throw new IllegalArgumentException("This " + operator + " cannot be used.");
+            default -> -1;
         };
     }
 
@@ -132,23 +132,23 @@ public class Calculator {
     }
 
     public String checkInput() throws RuntimeException {
-        if (this.input.matches("\\*\\*") ||
-                this.input.matches("//") ||
-                this.input.matches("-\\+") ||
-                this.input.matches("\\+\\*") ||
-                this.input.matches("/\\*") ||
-                this.input.matches("\\*/") ||
-                this.input.matches("-\\*") ||
-                this.input.matches("\\+\\+")){
+        if (this.input.matches(".*\\*\\*.*") ||
+                this.input.matches(".*//.*") ||
+                this.input.matches(".*-\\+.*") ||
+                this.input.matches(".*\\+\\*.*") ||
+                this.input.matches(".*/\\*.*") ||
+                this.input.matches(".*\\*/.*") ||
+                this.input.matches(".*-\\*.*") ||
+                this.input.matches(".*\\+\\+.*")){
             throw new RuntimeException("//, **, -+, +*, /*, */, -*, ++ patterns cannot be accepted.");
         }
 
-        if (this.input.matches("\\*-") ||
-            this.input.matches("\\+-") ||
-            this.input.matches("--")){
-            return "*-, +- and -- is not supported yet.\n";
+        if (this.input.matches(".*\\*-.*") ||
+            this.input.matches(".*\\+-.*") ||
+            this.input.matches(".*--.*")){
+            throw new RuntimeException("*-, +- and -- is not supported yet.\n");
         }
 
-        return null;
+        return "";
     }
 }

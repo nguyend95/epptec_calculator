@@ -9,12 +9,15 @@ import java.util.stream.Stream;
 // Program zatim nefunguje pro zapornych cisel. -3 + 2, 3--2, ...
 public class Main {
     public static void main(String[] args) throws IOException {
-        List<String> mathExpressions = Stream.of("5+ 2",
+        List<String> mathExpressions = Stream.of(
+                        "5+ 2",
                         "4+3*3",
                         "4*2+(3+41*1)",
                         "2*11+((2+1)*2+1)",
                         "2/11+((2+1)/2+1)",
-                        "(2+1)-4")
+                        "(2+1)-4",
+                        "2--1",
+                        "2++2")
                 .collect(Collectors.toList());
 	    Calculator calculator = new Calculator();
 
@@ -26,12 +29,14 @@ public class Main {
                 calculator.readInputAndModifyInfixToPostfix(reader);
             } catch (IOException e) {
                 e.printStackTrace();
+                return;
             }
 
             try {
                 System.out.print(calculator.checkInput());
             } catch (RuntimeException e) {
                 e.printStackTrace();
+                return;
             }
 
             calculator.calculate();
